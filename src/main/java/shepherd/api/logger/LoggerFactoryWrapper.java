@@ -3,13 +3,13 @@ package shepherd.api.logger;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoggerFactoryWrapper extends ShepherdLoggerFactory {
+public class LoggerFactoryWrapper extends LoggerFactory {
 
 
-    private ShepherdLoggerFactory wrapped;
+    private LoggerFactory wrapped;
     private final Map<Object, LoggerWrapper> createdLoggers;
 
-    public LoggerFactoryWrapper(ShepherdLoggerFactory wrapped)
+    public LoggerFactoryWrapper(LoggerFactory wrapped)
     {
         createdLoggers = new HashMap<>();
         setWrapped(wrapped);
@@ -20,13 +20,22 @@ public class LoggerFactoryWrapper extends ShepherdLoggerFactory {
         this(NullLoggerFactory.DEFAULT);
     }
 
-    public LoggerFactoryWrapper setWrapped(ShepherdLoggerFactory wrapped) {
+    public LoggerFactoryWrapper setWrapped(LoggerFactory wrapped) {
         synchronized (createdLoggers) {
-            this.wrapped = wrapped==null?NullLoggerFactory.DEFAULT:wrapped;
+            this.wrapped = wrapped==null? NullLoggerFactory.DEFAULT:wrapped;
             for(LoggerWrapper wrapper:createdLoggers.values())
             {
                 wrapper.setWrapped(this.wrapped.getLogger(wrapper.loggerObject()));
             }
+            return this;
+        }
+    }
+
+    @Override
+    public LoggerFactory setLoggerConfigure(LoggerConfigure configure) {
+        synchronized (createdLoggers)
+        {
+            this.wrapped.setLoggerConfigure(configure);
             return this;
         }
     }

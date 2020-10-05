@@ -2,7 +2,25 @@ package shepherd.api.cluster;
 
 public enum ClusterState {
 
-    SYNCHRONIZED(1) , UN_SYNCHRONIZED(2), STOPPED(3) , UNKNOWN(4);
+    /**
+     * Initial state of cluster
+     */
+    UNKNOWN(-1),
+    /**
+     * When cluster synchronizing state.
+     * For example when a new node connecting
+     */
+    SYNCHRONIZING(1),
+    /**
+     * When cluster state is synchronized across all nodes.
+     * For example when a node disconnected and all nodes accept it
+     */
+    SYNCHRONIZED(2) ,
+    /**
+     * When cluster stopped
+     */
+    STOPPED(3);
+
 
     public final int code;
 
@@ -11,12 +29,12 @@ public enum ClusterState {
         this.code = c;
     }
 
-    boolean is(ClusterState state)
+    public boolean is(ClusterState state)
     {
         return this == state;
     }
 
-    boolean isNot(ClusterState state)
+    public boolean isNot(ClusterState state)
     {
         return this != state;
     }
@@ -25,7 +43,7 @@ public enum ClusterState {
     {
         switch (code){
             case 1:return SYNCHRONIZED;
-            case 2:return UN_SYNCHRONIZED;
+            case 2:return SYNCHRONIZING;
             case 3:return STOPPED;
             case 4:return UNKNOWN;
             default:throw new IllegalArgumentException("code not defined");

@@ -1,6 +1,6 @@
 package shepherd.api.config;
 
-public interface Configuration {
+public interface IConfiguration {
 
     <T> boolean defineConfiguration(ConfigurationKey<T> configName, T defaultValue, ConfigurationChangeController controller);
     <T> ConfigurationChangeResult<T> set(ConfigurationKey<T> confKey, T value);
@@ -12,8 +12,9 @@ public interface Configuration {
     <T> boolean remove(ConfigurationKey<T> confKey);
     void addConfigChangeListener(ConfigChangeListener listener);
     void removeConfigChangeListener(ConfigChangeListener listener);
-    Configuration createSubConfiguration(String name);
-    Configuration subConfiguration(String name);
+    IConfiguration createSubConfiguration(String name);
+    IConfiguration subConfiguration(String name);
     String name();
-    Configuration asUndefinableConfiguration();
+    IConfiguration asUndefinableConfiguration();
+    IConfiguration parent();
 }

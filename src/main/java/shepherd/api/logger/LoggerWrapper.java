@@ -18,7 +18,7 @@ public class LoggerWrapper implements Logger {
 
     public LoggerWrapper setWrapped(Logger wrapped) {
 
-        this.wrapped = wrapped==null?NullLogger.DEFAULT:wrapped;
+        this.wrapped = wrapped==null? NullLogger.DEFAULT:wrapped;
 
         return this;
     }

@@ -1,6 +1,5 @@
 package shepherd.api.message;
 
-
 import shepherd.api.message.exceptions.SerializeException;
 
 import java.nio.ByteBuffer;

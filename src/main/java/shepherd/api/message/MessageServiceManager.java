@@ -1,6 +1,5 @@
 package shepherd.api.message;
 
-
 import shepherd.api.config.ConfigurationKey;
 
 import java.nio.ByteBuffer;
