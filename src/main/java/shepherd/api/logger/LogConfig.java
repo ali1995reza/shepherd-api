@@ -1,7 +1,5 @@
 package shepherd.api.logger;
 
-import shepherd.core.implement.assertion.Assertion;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,7 +25,8 @@ public class LogConfig {
 
         public synchronized Builder addLevel(Logger.LogLevel level)
         {
-            Assertion.ifNull("level can not be null" , level);
+            if(level==null)
+                throw new NullPointerException("level can not be null");
             if(!levels.contains(level))
                 levels.add(level);
 
